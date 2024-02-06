@@ -90,3 +90,7 @@ echo "-> Zerologon CVE-2020-1472"
 cat ip.ad | xargs -I@ crackmapexec smb @ -M zerologon
 echo "-> Eternal Blue MS17-010"
 cat ip.ad | xargs -I@ crackmapexec smb @ -M ms17-010
+echo "-> Find PrintSpooler service"
+cat dcip.ad | xargs -I@ sh -c 'rpcdump.py @ | grep -q "spoolsv" && echo "\033[0;31mPrintspooler service detected on @\033[0m"'
+echo "-> PrintNightmare CVE-2021-1675/CVE-2021-34527"
+cat dcip.ad | xargs -I@ sh -c 'rpcdump.py @ | egrep -q "MS-RPRN|MS-PAR" && echo "\033[0;31m@ Vulnerable to PrintNightmare\033[0m"'
